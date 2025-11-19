@@ -1,59 +1,142 @@
-# Portfolio
+# Data Science Portfolio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.10.
+A modern, animated portfolio website built with Angular, designed specifically for data scientists. Features a professional color scheme, smooth animations, and a responsive design.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- 🎨 **Professional Design**: Data science-themed color scheme with blues, teals, and purples
+- ✨ **Smooth Animations**: Fade-in, slide-up, and hover animations throughout
+- 📱 **Fully Responsive**: Works perfectly on desktop, tablet, and mobile devices
+- 📄 **CV Download**: Easy CV download functionality
+- 🚀 **GitHub Pages Ready**: Configured for easy deployment to GitHub Pages
+- 🎯 **SEO Optimized**: Meta tags and semantic HTML
 
+## Sections
+
+1. **Hero Section**: Eye-catching introduction with animated background
+2. **About Section**: Personal information and statistics
+3. **Projects Section**: Showcase your data science projects
+4. **Skills Section**: Display your technical skills with progress bars
+5. **Contact Section**: Contact form and social media links
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
 ```bash
-ng serve
+git clone <your-repo-url>
+cd Portfolio
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+2. Install dependencies:
 ```bash
-ng generate component component-name
+npm install
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
+3. Start the development server:
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+4. Open your browser and navigate to `http://localhost:4200`
 
-To build the project run:
+## Customization Guide
 
-```bash
-ng build
+### 1. Personal Information
+
+Update the following placeholders in `src/app/app.html`:
+
+- `[Your Name]` - Replace with your name
+- `[Your Email]` - Replace with your email
+- `[Your Location]` - Replace with your location
+- `[Your LinkedIn]` - Replace with your LinkedIn URL
+- `[Your GitHub]` - Replace with your GitHub URL
+- `[Your Instagram]` - Replace with your Instagram URL (optional)
+
+### 2. About Section
+
+Edit the about section in `src/app/app.html`:
+- Replace `[Your bio placeholder...]` with your actual bio
+- Update the statistics: `[X]`, `[Y]`, `[Z]` with your actual numbers
+- Add your photo to the image placeholder
+
+### 3. Projects
+
+Update the projects array in `src/app/app.ts`:
+- Replace project titles, descriptions, and tags
+- Add your GitHub and demo links
+- Add or remove projects as needed
+
+### 4. Skills
+
+Modify the skills array in `src/app/app.ts`:
+- Update skill names and proficiency levels (0-100)
+- Add or remove skills
+- Organize skills into categories
+
+### 5. CV Download
+
+1. Place your CV file in `src/assets/` as `cv.pdf`
+2. The download button will automatically work
+
+### 6. Colors
+
+Customize colors in `src/app/app.css` by modifying the CSS variables:
+```css
+--primary-blue: #4A90E2;
+--primary-teal: #50E3C2;
+--primary-purple: #667eea;
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Building for Production
 
 ```bash
-ng test
+npm run build
 ```
 
-## Running end-to-end tests
+The build artifacts will be stored in the `dist/` directory.
 
-For end-to-end (e2e) testing, run:
+## Deployment
 
-```bash
-ng e2e
+See `DEPLOYMENT.md` for detailed GitHub Pages deployment instructions.
+
+## Project Structure
+
+```
+Portfolio/
+├── src/
+│   ├── app/
+│   │   ├── app.ts          # Main component with data
+│   │   ├── app.html        # Template
+│   │   └── app.css         # Styles
+│   ├── assets/             # Static assets (CV, images)
+│   ├── index.html          # Main HTML file
+│   └── styles.css          # Global styles
+├── angular.json            # Angular configuration
+└── package.json           # Dependencies
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Technologies Used
 
-## Additional Resources
+- Angular 20
+- TypeScript
+- CSS3 (Animations, Grid, Flexbox)
+- Angular Animations
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## License
+
+This project is open source and available under the MIT License.
+
+## Support
+
+For issues or questions, please open an issue on GitHub.
+
+---
+
+**Note**: Remember to replace all placeholder content before deploying your portfolio!
