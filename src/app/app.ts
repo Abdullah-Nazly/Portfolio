@@ -38,23 +38,35 @@ export class App {
   protected readonly title = signal('Portfolio');
   isScrolled = signal(false);
   isMenuOpen = signal(false);
+  isDarkMode = signal(false);
+
+  constructor() {
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      this.isDarkMode.set(true);
+      document.documentElement.classList.add('dark-mode');
+    }
+  }
 
   projects = signal([
     {
       id: 1,
-      title: '[Project Title 1]',
-      description: '[Project description placeholder - Describe your data science project, the problem it solves, and key results]',
-      tags: ['Python', 'Machine Learning', 'Data Analysis'],
+      title: 'Mawanella Motors',
+      description: 'A web application for Mawanella Motors, a bike spare parts and accessories store.',
+      tags: ['Angular', 'Laravel'],
       github: '[Your GitHub Link]',
-      demo: '[Your Demo Link]'
+      demo: '[Your Demo Link]',
+      image: 'mawanella-motors.png'
     },
     {
       id: 2,
-      title: '[Project Title 2]',
-      description: '[Project description placeholder - Describe your data science project, the problem it solves, and key results]',
-      tags: ['TensorFlow', 'Deep Learning', 'NLP'],
-      github: '[Your GitHub Link]',
-      demo: null
+      title: 'News Recommendation System',
+      description: 'A news recommendation system using with javafx as ui framework. A simple NLP based news recommendation system.',
+      tags: ['Java', 'JavaFX', 'NLP', 'MongoDB'],
+      github: 'https://github.com/Abdullah-Nazly/Bank-Subscription-Prediction',
+      demo: null,
+      image: 'project2.jpg'
     },
     {
       id: 3,
@@ -62,7 +74,8 @@ export class App {
       description: '[Project description placeholder - Describe your data science project, the problem it solves, and key results]',
       tags: ['R', 'Statistical Analysis', 'Visualization'],
       github: '[Your GitHub Link]',
-      demo: '[Your Demo Link]'
+      demo: '[Your Demo Link]',
+      image: 'project3.jpg'
     },
     {
       id: 4,
@@ -70,7 +83,8 @@ export class App {
       description: '[Project description placeholder - Describe your data science project, the problem it solves, and key results]',
       tags: ['PyTorch', 'Computer Vision', 'Data Pipeline'],
       github: '[Your GitHub Link]',
-      demo: null
+      demo: null,
+      image: 'project4.jpg'
     },
     {
       id: 5,
@@ -78,7 +92,8 @@ export class App {
       description: '[Project description placeholder - Describe your data science project, the problem it solves, and key results]',
       tags: ['SQL', 'Big Data', 'ETL'],
       github: '[Your GitHub Link]',
-      demo: '[Your Demo Link]'
+      demo: '[Your Demo Link]',
+      image: 'project5.jpg'
     },
     {
       id: 6,
@@ -86,7 +101,8 @@ export class App {
       description: '[Project description placeholder - Describe your data science project, the problem it solves, and key results]',
       tags: ['Scikit-learn', 'Feature Engineering', 'Model Deployment'],
       github: '[Your GitHub Link]',
-      demo: null
+      demo: null,
+      image: 'project6.jpg'
     }
   ]);
 
@@ -172,6 +188,17 @@ export class App {
     }
   }
 
+  handleProjectImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    if (img) {
+      img.style.display = 'none';
+      const placeholder = img.parentElement?.querySelector('.project-placeholder') as HTMLElement;
+      if (placeholder) {
+        placeholder.style.display = 'flex';
+      }
+    }
+  }
+
   @HostListener('window:scroll')
   onScroll() {
     this.isScrolled.set(window.scrollY > 50);
@@ -204,6 +231,17 @@ export class App {
       event.stopPropagation();
     }
     this.isMenuOpen.set(!this.isMenuOpen());
+  }
+
+  toggleDarkMode() {
+    this.isDarkMode.set(!this.isDarkMode());
+    if (this.isDarkMode()) {
+      document.documentElement.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'light');
+    }
   }
 
   downloadCV() {
