@@ -1,6 +1,7 @@
 import { Component, signal, effect, HostListener } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { FormsModule } from '@angular/forms';
+import emailjs from '@emailjs/browser';
 
 @Component({
   selector: 'app-root',
@@ -39,6 +40,17 @@ export class App {
   isScrolled = signal(false);
   isMenuOpen = signal(false);
   isDarkMode = signal(true); // Default to dark mode
+
+  // Contact form properties
+  contactForm = {
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  };
+  isSubmitting = signal(false);
+  submitMessage = signal('');
+  submitSuccess = signal(false);
 
   constructor() {
     // Check for saved theme preference or default to dark mode
@@ -277,11 +289,70 @@ export class App {
     link.click();
   }
 
-  onSubmit(event: Event) {
+  async onSubmit(event: Event) {
     event.preventDefault();
-    // Placeholder for form submission
-    // You can integrate with a backend service or email service here
-    alert('Thank you for your message! I will get back to you soon.');
-    (event.target as HTMLFormElement).reset();
+    const form = event.target as HTMLFormElement;
+
+    // Validate form
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    this.submitMessage.set('');
+    this.submitSuccess.set(false);
+
+    try {
+      // EmailJS configuration
+      // See EMAILJS_SETUP.md for setup instructions
+      // Get these values from: https://www.emailjs.com/
+      const serviceId = 'service_6pdekwd';
+      const templateId = 'template_3m30a5j';
+      const publicKey = 'wTWaweBZHdjwVhmQS';
+
+      const templateParams = {
+        name: this.contactForm.name,
+        email: this.contactForm.email,
+        subject: this.contactForm.subject,
+        message: this.contactForm.message,
+        time: new Date().toLocaleString('en-US', {
+          weekday: 'short',
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        }),
+        to_email: 'abdullahibnunazly@gmail.com'
+      };
+
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+      this.submitSuccess.set(true);
+      this.submitMessage.set('Thank you for your message! I will get back to you soon.');
+
+      // Reset form
+      this.contactForm = {
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      };
+      form.reset();
+
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        this.submitMessage.set('');
+        this.submitSuccess.set(false);
+      }, 5000);
+
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      this.submitSuccess.set(false);
+      this.submitMessage.set('Sorry, there was an error sending your message. Please try again or contact me directly at abdullahibnunazly@gmail.com');
+    } finally {
+      this.isSubmitting.set(false);
+    }
   }
 }
