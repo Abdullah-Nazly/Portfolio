@@ -38,12 +38,16 @@ export class App {
   protected readonly title = signal('Portfolio');
   isScrolled = signal(false);
   isMenuOpen = signal(false);
-  isDarkMode = signal(false);
+  isDarkMode = signal(true); // Default to dark mode
 
   constructor() {
-    // Check for saved theme preference or default to light mode
+    // Check for saved theme preference or default to dark mode
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
+    if (savedTheme === 'light') {
+      this.isDarkMode.set(false);
+      document.documentElement.classList.remove('dark-mode');
+    } else {
+      // Default to dark mode if no preference is saved
       this.isDarkMode.set(true);
       document.documentElement.classList.add('dark-mode');
     }
@@ -145,6 +149,15 @@ export class App {
     }
   ]);
 
+  getAssetPath(path: string): string {
+    // Get the base href from the document (handles /Portfolio/ for GitHub Pages)
+    const baseHref = document.querySelector('base')?.getAttribute('href') || '/';
+    // Remove trailing slash from baseHref if present, then add the asset path
+    const cleanBase = baseHref.endsWith('/') ? baseHref.slice(0, -1) : baseHref;
+    const cleanPath = path.startsWith('/') ? path : '/' + path;
+    return cleanBase + cleanPath;
+  }
+
   getIconUrl(iconName: string): string {
     // Using Simple Icons CDN - returns SVG icon URL
     return `https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/${iconName}.svg`;
@@ -153,7 +166,7 @@ export class App {
   getIconName(skillName: string, icon?: string): string {
     // Return the icon name if provided, otherwise try to derive from skill name
     if (icon) return icon;
-    
+
     // Fallback mapping for common skills
     const iconMap: { [key: string]: string } = {
       'Python': 'python',
@@ -173,7 +186,7 @@ export class App {
       'Docker': 'docker',
       'Kubernetes': 'kubernetes'
     };
-    
+
     return iconMap[skillName] || 'circle';
   }
 
@@ -184,6 +197,17 @@ export class App {
       const fallback = img.nextElementSibling as HTMLElement;
       if (fallback) {
         fallback.style.display = 'block';
+      }
+    }
+  }
+
+  handleProfileImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    if (img) {
+      img.style.display = 'none';
+      const placeholder = img.nextElementSibling as HTMLElement;
+      if (placeholder) {
+        placeholder.style.display = 'block';
       }
     }
   }
@@ -248,7 +272,7 @@ export class App {
     // Placeholder for CV download functionality
     // You'll need to add your CV file to the assets folder
     const link = document.createElement('a');
-    link.href = '/assets/cv.pdf'; // Update this path to your CV file
+    link.href = this.getAssetPath('/assets/CV.pdf'); // Update this path to your CV file
     link.download = 'CV.pdf';
     link.click();
   }

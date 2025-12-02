@@ -1,23 +1,42 @@
-# Data Science Portfolio
+# Abdullah Nazly - Data Science Portfolio
 
-A modern, animated portfolio website built with Angular, designed specifically for data scientists. Features a professional color scheme, smooth animations, and a responsive design.
+A modern, animated portfolio website showcasing my work as a Data Scientist. Built with Angular, featuring a professional design with smooth animations and a responsive layout.
+
+🌐 **Live Site**: [https://abdullah-nazly.github.io/Portfolio/](https://abdullah-nazly.github.io/Portfolio/)
+
+## About
+
+I'm a passionate Data Scientist with expertise in machine learning, statistical analysis, and data visualization. Currently pursuing my undergraduate degree at Informatics Institute of Technology, Sri Lanka (affiliated with Robert Gordon University, Aberdeen, UK), and working as a DevOps Intern at OPStimus Solutions Private Limited.
 
 ## Features
 
 - 🎨 **Professional Design**: Data science-themed color scheme with blues, teals, and purples
+- 🌙 **Dark Mode**: Toggle between light and dark themes
 - ✨ **Smooth Animations**: Fade-in, slide-up, and hover animations throughout
 - 📱 **Fully Responsive**: Works perfectly on desktop, tablet, and mobile devices
 - 📄 **CV Download**: Easy CV download functionality
-- 🚀 **GitHub Pages Ready**: Configured for easy deployment to GitHub Pages
+- 🚀 **GitHub Pages Ready**: Configured for easy deployment
 - 🎯 **SEO Optimized**: Meta tags and semantic HTML
 
 ## Sections
 
 1. **Hero Section**: Eye-catching introduction with animated background
-2. **About Section**: Personal information and statistics
-3. **Projects Section**: Showcase your data science projects
-4. **Skills Section**: Display your technical skills with progress bars
+2. **About Section**: Personal information, education, and statistics
+3. **Projects Section**: Showcase of data science and web development projects
+4. **Skills Section**: Technical skills with progress bars and icons
 5. **Contact Section**: Contact form and social media links
+
+## Projects
+
+- **Mawanella Motors**: Web application for a bike spare parts and accessories store (Angular, Laravel)
+- **News Recommendation System**: NLP-based news recommendation system with JavaFX UI (Java, JavaFX, NLP, MongoDB)
+
+## Skills
+
+- **Programming Languages**: Python, R, SQL, JavaScript
+- **Machine Learning**: Scikit-learn, TensorFlow, PyTorch, XGBoost
+- **Data Tools**: Pandas, NumPy, Matplotlib, Seaborn
+- **Big Data & Cloud**: Spark, AWS, Docker, Kubernetes
 
 ## Getting Started
 
@@ -30,7 +49,7 @@ A modern, animated portfolio website built with Angular, designed specifically f
 
 1. Clone the repository:
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Abdullah-Nazly/Portfolio.git
 cd Portfolio
 ```
 
@@ -46,54 +65,6 @@ npm start
 
 4. Open your browser and navigate to `http://localhost:4200`
 
-## Customization Guide
-
-### 1. Personal Information
-
-Update the following placeholders in `src/app/app.html`:
-
-- `[Your Name]` - Replace with your name
-- `[Your Email]` - Replace with your email
-- `[Your Location]` - Replace with your location
-- `[Your LinkedIn]` - Replace with your LinkedIn URL
-- `[Your GitHub]` - Replace with your GitHub URL
-- `[Your Instagram]` - Replace with your Instagram URL (optional)
-
-### 2. About Section
-
-Edit the about section in `src/app/app.html`:
-- Replace `[Your bio placeholder...]` with your actual bio
-- Update the statistics: `[X]`, `[Y]`, `[Z]` with your actual numbers
-- Add your photo to the image placeholder
-
-### 3. Projects
-
-Update the projects array in `src/app/app.ts`:
-- Replace project titles, descriptions, and tags
-- Add your GitHub and demo links
-- Add or remove projects as needed
-
-### 4. Skills
-
-Modify the skills array in `src/app/app.ts`:
-- Update skill names and proficiency levels (0-100)
-- Add or remove skills
-- Organize skills into categories
-
-### 5. CV Download
-
-1. Place your CV file in `src/assets/` as `cv.pdf`
-2. The download button will automatically work
-
-### 6. Colors
-
-Customize colors in `src/app/app.css` by modifying the CSS variables:
-```css
---primary-blue: #4A90E2;
---primary-teal: #50E3C2;
---primary-purple: #667eea;
-```
-
 ## Building for Production
 
 ```bash
@@ -104,7 +75,13 @@ The build artifacts will be stored in the `dist/` directory.
 
 ## Deployment
 
-See `DEPLOYMENT.md` for detailed GitHub Pages deployment instructions.
+Deploy to GitHub Pages with a single command:
+
+```bash
+npm run deploy:gh-pages
+```
+
+See `DEPLOYMENT.md` for detailed deployment instructions.
 
 ## Project Structure
 
@@ -119,7 +96,8 @@ Portfolio/
 │   ├── index.html          # Main HTML file
 │   └── styles.css          # Global styles
 ├── angular.json            # Angular configuration
-└── package.json           # Dependencies
+├── package.json           # Dependencies
+└── deploy.sh              # Deployment script
 ```
 
 ## Technologies Used
@@ -129,14 +107,17 @@ Portfolio/
 - CSS3 (Animations, Grid, Flexbox)
 - Angular Animations
 
+## Contact
+
+- **Email**: abdullahibnunazly@gmail.com
+- **LinkedIn**: [abdullah-nazly](https://www.linkedin.com/in/abdullah-nazly/)
+- **GitHub**: [Abdullah-Nazly](https://github.com/Abdullah-Nazly/)
+- **Instagram**: [abulu_nazly](https://www.instagram.com/abulu_nazly/)
+
 ## License
 
 This project is open source and available under the MIT License.
 
-## Support
-
-For issues or questions, please open an issue on GitHub.
-
 ---
 
-**Note**: Remember to replace all placeholder content before deploying your portfolio!
+Built with ❤️ by Abdullah Nazly
