@@ -82,81 +82,53 @@ export class App {
       tags: ['Java', 'JavaFX', 'NLP', 'MongoDB'],
       github: 'https://github.com/Abdullah-Nazly/Bank-Subscription-Prediction',
       demo: null,
-      image: 'project2.jpg'
+      image: 'News_recommend_system.png'
     },
     {
       id: 3,
-      title: '[Project Title 3]',
+      title: 'InsightHive',
       description: '[Project description placeholder - Describe your data science project, the problem it solves, and key results]',
-      tags: ['R', 'Statistical Analysis', 'Visualization'],
+      tags: ['GNN', 'Bert', 'K-means', 'Supabase'],
       github: '[Your GitHub Link]',
       demo: '[Your Demo Link]',
-      image: 'project3.jpg'
+      image: 'InsightHive.png'
     },
-    {
-      id: 4,
-      title: '[Project Title 4]',
-      description: '[Project description placeholder - Describe your data science project, the problem it solves, and key results]',
-      tags: ['PyTorch', 'Computer Vision', 'Data Pipeline'],
-      github: '[Your GitHub Link]',
-      demo: null,
-      image: 'project4.jpg'
-    },
-    {
-      id: 5,
-      title: '[Project Title 5]',
-      description: '[Project description placeholder - Describe your data science project, the problem it solves, and key results]',
-      tags: ['SQL', 'Big Data', 'ETL'],
-      github: '[Your GitHub Link]',
-      demo: '[Your Demo Link]',
-      image: 'project5.jpg'
-    },
-    {
-      id: 6,
-      title: '[Project Title 6]',
-      description: '[Project description placeholder - Describe your data science project, the problem it solves, and key results]',
-      tags: ['Scikit-learn', 'Feature Engineering', 'Model Deployment'],
-      github: '[Your GitHub Link]',
-      demo: null,
-      image: 'project6.jpg'
-    }
+
   ]);
 
   skills = signal([
     {
       name: 'Programming Languages',
       items: [
-        { name: 'Python', level: 90, icon: 'python' },
-        { name: 'R', level: 85, icon: 'r' },
-        { name: 'SQL', level: 88, icon: 'mysql' },
-        { name: 'JavaScript', level: 70, icon: 'javascript' }
+        { name: 'Python', icon: 'python' },
+        { name: 'R', icon: 'r' },
+        { name: 'SQL', icon: 'mysql' },
+        { name: 'JavaScript', icon: 'javascript' }
       ]
     },
     {
       name: 'Machine Learning',
       items: [
-        { name: 'Scikit-learn', level: 92, icon: 'scikitlearn' },
-        { name: 'TensorFlow', level: 85, icon: 'tensorflow' },
-        { name: 'PyTorch', level: 80, icon: 'pytorch' },
-        { name: 'XGBoost', level: 88, icon: 'xgboost' }
+        { name: 'Scikit-learn', icon: 'scikitlearn' },
+        { name: 'TensorFlow', icon: 'tensorflow' },
+        { name: 'PyTorch', icon: 'pytorch' }
       ]
     },
     {
       name: 'Data Tools',
       items: [
-        { name: 'Pandas', level: 95, icon: 'pandas' },
-        { name: 'NumPy', level: 90, icon: 'numpy' },
-        { name: 'Matplotlib', level: 85, icon: 'matplotlib' },
-        { name: 'Seaborn', level: 87, icon: 'seaborn' }
+        { name: 'Pandas', icon: 'pandas' },
+        { name: 'NumPy', icon: 'numpy' },
+        { name: 'Matplotlib', icon: 'matplotlib' },
+        { name: 'Seaborn', icon: 'seaborn' }
       ]
     },
     {
       name: 'Big Data & Cloud',
       items: [
-        { name: 'Spark', level: 75, icon: 'apachespark' },
-        { name: 'AWS', level: 80, icon: 'amazonaws' },
-        { name: 'Docker', level: 78, icon: 'docker' },
-        { name: 'Kubernetes', level: 70, icon: 'kubernetes' }
+        { name: 'AWS', icon: 'amazonwebservices' },
+        { name: 'Docker', icon: 'docker' },
+        { name: 'Kubernetes', icon: 'kubernetes' }
       ]
     }
   ]);
@@ -170,36 +142,84 @@ export class App {
     return cleanBase + cleanPath;
   }
 
-  getIconUrl(iconName: string): string {
-    // Using Simple Icons CDN - returns SVG icon URL
-    return `https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/${iconName}.svg`;
+  getIconUrl(iconName: string, useSimpleIcons: boolean = false, useSkillIcons: boolean = false): string {
+    if (useSkillIcons) {
+      // Use Simple Icons CDN directly for AWS and Matplotlib
+      // Website: https://simpleicons.org/
+      // Format: https://cdn.simpleicons.org/{icon-name}/{color}
+      if (iconName === 'aws') {
+        return 'https://cdn.simpleicons.org/amazonaws/FF9900'; // AWS orange
+      }
+      if (iconName === 'matplotlib') {
+        return 'https://cdn.simpleicons.org/matplotlib/11557c'; // Matplotlib blue
+      }
+      // Fallback to skillicons.dev
+      return `https://skillicons.dev/icons?i=${iconName}`;
+    }
+    if (useSimpleIcons) {
+      // Use Simple Icons CDN directly (more reliable than Iconify)
+      // Website: https://simpleicons.org/
+      const color = this.getIconColor(iconName);
+      return `https://cdn.simpleicons.org/${iconName}/${color}`;
+    }
+    // Using DevIcons CDN - returns colored SVG icons
+    // Website: https://devicon.dev/
+    return `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${iconName}/${iconName}-original.svg`;
   }
 
-  getIconName(skillName: string, icon?: string): string {
-    // Return the icon name if provided, otherwise try to derive from skill name
-    if (icon) return icon;
+  getIconColor(iconName: string): string {
+    // Color codes for Simple Icons (hex without #)
+    const colors: { [key: string]: string } = {
+      'pandas': '150458', // Pandas blue
+      'numpy': '013243', // NumPy blue
+      'matplotlib': '11557c', // Matplotlib blue
+      'seaborn': '3776ab', // Python blue (Seaborn doesn't have official color)
+      'scikitlearn': 'f7931e' // Orange
+    };
+    return colors[iconName] || '3776ab'; // Default to Python blue
+  }
 
-    // Fallback mapping for common skills
-    const iconMap: { [key: string]: string } = {
-      'Python': 'python',
-      'R': 'r',
-      'SQL': 'mysql',
-      'JavaScript': 'javascript',
-      'Scikit-learn': 'scikitlearn',
-      'TensorFlow': 'tensorflow',
-      'PyTorch': 'pytorch',
-      'XGBoost': 'xgboost',
-      'Pandas': 'pandas',
-      'NumPy': 'numpy',
-      'Matplotlib': 'matplotlib',
-      'Seaborn': 'seaborn',
-      'Spark': 'apachespark',
-      'AWS': 'amazonaws',
-      'Docker': 'docker',
-      'Kubernetes': 'kubernetes'
+  getIconName(skillName: string, icon?: string): { name: string; useSimpleIcons: boolean; useSkillIcons: boolean } {
+    // Return the icon name if provided
+    if (icon) {
+      // Check which icon source to use
+      const simpleIconsList = ['pandas', 'numpy', 'seaborn', 'scikitlearn'];
+      const skillIconsList = ['aws', 'matplotlib'];
+      const iconLower = icon.toLowerCase();
+
+      return {
+        name: icon,
+        useSimpleIcons: simpleIconsList.includes(iconLower),
+        useSkillIcons: skillIconsList.includes(iconLower)
+      };
+    }
+
+    // Icon mapping with source preference
+    const iconMap: { [key: string]: { name: string; useSimpleIcons: boolean; useSkillIcons: boolean } } = {
+      'Python': { name: 'python', useSimpleIcons: false, useSkillIcons: false },
+      'R': { name: 'r', useSimpleIcons: false, useSkillIcons: false },
+      'SQL': { name: 'mysql', useSimpleIcons: false, useSkillIcons: false },
+      'JavaScript': { name: 'javascript', useSimpleIcons: false, useSkillIcons: false },
+      'Scikit-learn': { name: 'scikitlearn', useSimpleIcons: true, useSkillIcons: false },
+      'TensorFlow': { name: 'tensorflow', useSimpleIcons: false, useSkillIcons: false },
+      'PyTorch': { name: 'pytorch', useSimpleIcons: false, useSkillIcons: false },
+      'Pandas': { name: 'pandas', useSimpleIcons: true, useSkillIcons: false },
+      'NumPy': { name: 'numpy', useSimpleIcons: true, useSkillIcons: false },
+      'Matplotlib': { name: 'matplotlib', useSimpleIcons: false, useSkillIcons: true },
+      'Seaborn': { name: 'seaborn', useSimpleIcons: true, useSkillIcons: false },
+      'AWS': { name: 'amazonaws', useSimpleIcons: false, useSkillIcons: true },
+      'Docker': { name: 'docker', useSimpleIcons: false, useSkillIcons: false },
+      'Kubernetes': { name: 'kubernetes', useSimpleIcons: false, useSkillIcons: false }
     };
 
-    return iconMap[skillName] || 'circle';
+    const mapping = iconMap[skillName];
+    if (mapping) {
+      return mapping;
+    }
+
+    // Fallback
+    const fallbackName = skillName.toLowerCase().replace(/\s+/g, '');
+    return { name: fallbackName, useSimpleIcons: false, useSkillIcons: false };
   }
 
   handleIconError(event: Event) {
